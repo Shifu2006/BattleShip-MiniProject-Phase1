@@ -5,7 +5,7 @@ import java.util.Scanner;
   It includes methods to manage grids, turns, and check the game status.
  */
 public class BattleShip {
-
+    // ha ha ha ha
     // Grid size for the game
     static final int GRID_SIZE = 10;
 
