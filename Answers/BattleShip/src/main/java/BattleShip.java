@@ -176,7 +176,29 @@ public class BattleShip {
       @param trackingGrid The player's tracking grid to update.
      */
     static void playerTurn(char[][] opponentGrid, char[][] trackingGrid) {
-        //todo
+        System.out.print("Enter a target location (for example A7): ");
+        String input = scanner.nextLine();
+        if(!isValidInput(input)) {
+            System.out.println("Invalid input. Don't do this again.");
+            return;
+        }
+        else{
+            int row = input.charAt(0) - 'A';
+            int col = input.charAt(1) - '1';
+            if(opponentGrid[row][col] == 'S'){
+                trackingGrid[row][col] = 'X';
+                if(shipSunk(opponentGrid, trackingGrid, row, col)){
+                    System.out.println("You sunk a ship!");
+                }
+                else{
+                    System.out.println("Hit!");
+                }
+            }
+            else{
+                trackingGrid[row][col] = 'O';
+                System.out.println("Miss!");
+            }
+        }
     }
 
     /**
@@ -197,6 +219,75 @@ public class BattleShip {
      */
     static boolean allShipsSunk(char[][] grid) {
         //todo
+        return true;
+    }
+
+    static boolean shipSunk(char[][] opponentGrid, char[][] trackingGrid, int row, int col) {
+        int holdRow = row;
+        boolean horizontal = false;
+        int shipSize = 0;
+        while(row >= 0 && opponentGrid[row][col] == 'S'){
+            shipSize++;
+            horizontal = true;
+            if(trackingGrid[row][col] != 'X'){
+                return false;
+            }
+            row--;
+        }
+        row = holdRow + 1;
+        while(row < 10 && opponentGrid[row][col] == 'S'){
+            shipSize++;
+            horizontal = true;
+            if(trackingGrid[row][col] != 'X'){
+                return false;
+            }
+            row++;
+        }
+        row = holdRow;
+
+        if(horizontal){
+            int holdCol = col;
+            while(col >= 0 && opponentGrid[row][col] == 'S'){
+                shipSize++;
+                if(trackingGrid[row][col] != 'X'){
+                    return false;
+                }
+                col--;
+            }
+            col = holdCol + 1;
+            while(col < 10 && opponentGrid[row][col] == 'S'){
+                shipSize++;
+                if(trackingGrid[row][col] != 'X'){
+                    return false;
+                }
+                col++;
+            }
+            col = holdCol;
+        }
+
+        if(horizontal){
+            for (int i = -1; i < shipSize; i++) {
+                for (int j = -1; j < 2; j++) {
+                    if(row + j >= 0 && row + j < 10 && col + i >= 0 && col + i < 10){
+                        if(trackingGrid[row + j][col + i] == '~'){
+                            trackingGrid[row + j][col + i] = 'O';
+                        }
+                    }
+                }
+            }
+        }
+        else{
+            for (int i = -1; i < 2; i++) {
+                for (int j = -1; j < shipSize; j++) {
+                    if(row + j >= 0 && row + j < 10 && col + i >= 0 && col + i < 10){
+                        if(trackingGrid[row + j][col + i] == '~'){
+                            trackingGrid[row + j][col + i] = 'O';
+                        }
+                    }
+                }
+            }
+        }
+
         return true;
     }
 
