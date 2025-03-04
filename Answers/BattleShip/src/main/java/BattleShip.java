@@ -298,7 +298,15 @@ public class BattleShip {
       @return true if the input is in the correct format, false otherwise.
      */
     static boolean isValidInput(String input) {
-        //todo
+        if(input.length() != 2){
+            return false;
+        }
+        else if(input.charAt(0) < 'A' || input.charAt(0) > 'J'){
+            return false;
+        }
+        else if(input.charAt(1) < '1' || input.charAt(1) > '0'){
+            return false;
+        }
         return true;
     }
 
@@ -309,6 +317,13 @@ public class BattleShip {
       @param grid The tracking grid to print.
      */
     static void printGrid(char[][] grid) {
-        //todo
+        System.out.println("  A B C D E F G H I J");
+        for (int i = 1; i <= 10; i++) {
+            System.out.print(i + " ");
+            for (int j = 0; j < 10; j++) {
+                System.out.print(grid[i][j] + " ");
+            }
+            System.out.println();
+        }
     }
 }
