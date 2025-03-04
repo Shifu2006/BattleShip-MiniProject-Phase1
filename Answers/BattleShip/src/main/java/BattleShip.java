@@ -1,5 +1,5 @@
-import java.util.Scanner;
 import java.util.Random;
+import java.util.Scanner;
 
 /**
   The BattleShip class manages the gameplay of the Battleship game between two players.
@@ -116,55 +116,35 @@ public class BattleShip {
       @return true if the ship can be placed at the specified location, false otherwise.
      */
     static boolean canPlaceShip(char[][] grid, int row, int col, int size, boolean horizontal) {
-        int i2 = -1;
-        int j2 = -1;
-        int sizeI;
-        int sizeJ;
         if(horizontal){
             if(col + size > 10){
                 return false;
             }
-            sizeI = size + 2;
-            sizeJ = 2;
-            if(col == 0){
-                i2 = 0;
-            }
-            else if(col + size == 10) {
-                sizeI = size;
-            }
-            if(row == 0){
-                j2 = 0;
-            }
-            else if(row == 10){
-                sizeJ = 1;
-            }
-        }
-        else {
-            if(row + size > 10){
-                return false;
-            }
-            sizeI = 2;
-            sizeJ = size + 2;
-            if(row == 0){
-                j2 = 0;
-            }
-            else if(row + size == 10) {
-                sizeJ = size;
-            }
-            if(col == 0){
-                i2 = 0;
-            }
-            else if(col == 10){
-                sizeI = 1;
-            }    
-        }
-        for(int i = i2; i < sizeI; i++){
-            for (int j = j2; j < sizeJ; j++) {
-                if(grid[row + j][col + i] != '~'){
-                    return false;
+            for (int i = -1; i < size; i++) {
+                for (int j = -1; j < 2; j++) {
+                    if(row + j >= 0 && row + j < 10 && col + i >= 0 && col + i < 10){
+                        if(grid[row + j][col + i] != '~'){
+                            return false;
+                        }
+                    }
                 }
             }
         }
+        else{
+            if(row + size > 10){
+                return false;
+            }
+            for (int i = -1; i < 2; i++) {
+                for (int j = -1; j < size; j++) {
+                    if(row + j >= 0 && row + j < 10 && col + i >= 0 && col + i < 10){
+                        if(grid[row + j][col + i] != '~'){
+                            return false;
+                        }
+                    }
+                }
+            }
+        }
+        
         return true;
     }
 
@@ -320,7 +300,7 @@ public class BattleShip {
         System.out.println("  A B C D E F G H I J");
         for (int i = 1; i <= 10; i++) {
             System.out.print(i + " ");
-            for (int j = 0; j < 10; j++) {
+            for (int j = 0; j <= 10; j++) {
                 System.out.print(grid[i][j] + " ");
             }
             System.out.println();
