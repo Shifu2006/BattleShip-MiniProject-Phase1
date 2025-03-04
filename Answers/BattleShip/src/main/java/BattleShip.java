@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.Random;
 
 /**
   The BattleShip class manages the gameplay of the Battleship game between two players.
@@ -66,7 +67,11 @@ public class BattleShip {
       @param grid The grid to initialize.
      */
     static void initializeGrid(char[][] grid) {
-        //todo
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid.length; j++) {
+                grid[i][j] = '~';
+            }
+        }
     }
 
     /**
@@ -76,7 +81,26 @@ public class BattleShip {
       @param grid The grid where ships need to be placed.
      */
     static void placeShips(char[][] grid) {
-        //todo
+        Random rand = new Random();
+        for(int i = 5; i >= 2; i--){
+            int rInt = rand.nextInt(10);
+            int cInt = rand.nextInt(10);
+            boolean horizontal = rand.nextBoolean();
+            while(!canPlaceShip(grid, rInt, cInt, i, horizontal)){
+                rInt = rand.nextInt(10);
+                cInt = rand.nextInt(10);
+                horizontal = rand.nextBoolean();
+            }
+            if(horizontal){
+                for(int j = 0; j < i; j++){
+                    grid[rInt][cInt + j] = 'S';
+                }
+            } else {
+                for(int j = 0; j < i; j++){
+                    grid[rInt + j][cInt] = 'S';
+                }
+            }
+        }
     }
 
     /**
@@ -92,7 +116,55 @@ public class BattleShip {
       @return true if the ship can be placed at the specified location, false otherwise.
      */
     static boolean canPlaceShip(char[][] grid, int row, int col, int size, boolean horizontal) {
-        //todo
+        int i2 = -1;
+        int j2 = -1;
+        int sizeI;
+        int sizeJ;
+        if(horizontal){
+            if(col + size > 10){
+                return false;
+            }
+            sizeI = size + 2;
+            sizeJ = 2;
+            if(col == 0){
+                i2 = 0;
+            }
+            else if(col + size == 10) {
+                sizeI = size;
+            }
+            if(row == 0){
+                j2 = 0;
+            }
+            else if(row == 10){
+                sizeJ = 1;
+            }
+        }
+        else {
+            if(row + size > 10){
+                return false;
+            }
+            sizeI = 2;
+            sizeJ = size + 2;
+            if(row == 0){
+                j2 = 0;
+            }
+            else if(row + size == 10) {
+                sizeJ = size;
+            }
+            if(col == 0){
+                i2 = 0;
+            }
+            else if(col == 10){
+                sizeI = 1;
+            }    
+        }
+        for(int i = i2; i < sizeI; i++){
+            for (int j = j2; j < sizeJ; j++) {
+                if(grid[row + j][col + i] != '~'){
+                    return false;
+                }
+            }
+        }
         return true;
     }
 
