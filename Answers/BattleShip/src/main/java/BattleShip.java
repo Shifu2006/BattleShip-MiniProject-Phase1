@@ -188,10 +188,14 @@ public class BattleShip {
      */
     static boolean isGameOver() {
         if(allShipsSunk(player1TrackingGrid)){
+            //printGrid(player2Grid);
+            //printGrid(player1Grid);
             System.out.println("Player 1 wins!");
             return true;
         }
         else if(allShipsSunk(player2TrackingGrid)){
+            //printGrid(player1Grid);
+            //printGrid(player2Grid);
             System.out.println("Player 2 wins!");
             return true;
         }
