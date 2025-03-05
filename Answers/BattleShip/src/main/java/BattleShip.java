@@ -187,7 +187,14 @@ public class BattleShip {
       @return true if the game is over (all ships are sunk), false otherwise.
      */
     static boolean isGameOver() {
-        //todo
+        if(allShipsSunk(player1TrackingGrid)){
+            System.out.println("Player 1 wins!");
+            return true;
+        }
+        else if(allShipsSunk(player2TrackingGrid)){
+            System.out.println("Player 2 wins!");
+            return true;
+        }
         return false;
     }
 
@@ -198,7 +205,17 @@ public class BattleShip {
       @return true if all ships are sunk, false otherwise.
      */
     static boolean allShipsSunk(char[][] grid) {
-        //todo
+        int count = 0;
+        for (int i = 0; i < 10; i++) {
+            for (int j = 0; j < 10; j++) {
+                if(grid[i][j] == 'X'){
+                    count++;
+                }
+            }
+        }
+        if(count != 14){
+            return false;
+        }
         return true;
     }
 
