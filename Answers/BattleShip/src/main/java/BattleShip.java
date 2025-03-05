@@ -22,8 +22,22 @@ public class BattleShip {
     // Player 2's tracking grid to show their hits and misses
     static char[][] player2TrackingGrid = new char[GRID_SIZE][GRID_SIZE];
 
+    static String[] text = {
+        "Are you blind or something?",
+        "LOOK AT THIS GUY! XD",
+        "Ain't no way you just did that.",
+        "Some advice: this not gonna work.",
+        "SKILL ISSUE!",
+        "Bro really did it twice, unbelievable!",
+        "the square is talking: what did I do to deserve this? dont hit me again.",
+        "Is this your master plan? gg."
+    };
+
     // Scanner object for user input
     static Scanner scanner = new Scanner(System.in);
+    static Random rand = new Random();
+
+
 
     /**
       The main method that runs the game loop.
@@ -81,7 +95,6 @@ public class BattleShip {
       @param grid The grid where ships need to be placed.
      */
     static void placeShips(char[][] grid) {
-        Random rand = new Random();
         for(int i = 5; i >= 2; i--){
             int rInt = rand.nextInt(10);
             int cInt = rand.nextInt(10);
@@ -166,6 +179,10 @@ public class BattleShip {
             int col = input.charAt(0) - 'A';
             int row = input.charAt(1) - '0';
             if(opponentGrid[row][col] == 'S'){
+                if(trackingGrid[row][col] == 'X'){
+                    System.out.println("You already hit that ship. " + text[rand.nextInt(text.length)]);
+                    return;
+                }
                 trackingGrid[row][col] = 'X';
                 if(shipSunk(opponentGrid, trackingGrid, row, col)){
                     System.out.println("You sunk a ship!");
@@ -175,6 +192,10 @@ public class BattleShip {
                 }
             }
             else{
+                if(trackingGrid[row][col] == 'O'){
+                    System.out.println("You already hit that square. " + text[rand.nextInt(text.length)]);
+                    return;
+                }
                 trackingGrid[row][col] = 'O';
                 System.out.println("Miss!");
             }
