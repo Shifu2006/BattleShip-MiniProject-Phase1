@@ -298,9 +298,9 @@ public class BattleShip {
      */
     static void printGrid(char[][] grid) {
         System.out.println("  A B C D E F G H I J");
-        for (int i = 1; i <= 10; i++) {
-            System.out.print(i + " ");
-            for (int j = 0; j <= 10; j++) {
+        for (int i = 1; i < 10; i++) {
+            System.out.print(i + 1 + " ");
+            for (int j = 0; j < 10; j++) {
                 System.out.print(grid[i][j] + " ");
             }
             System.out.println();
