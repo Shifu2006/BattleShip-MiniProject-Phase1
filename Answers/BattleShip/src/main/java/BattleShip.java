@@ -284,7 +284,7 @@ public class BattleShip {
         else if(input.charAt(0) < 'A' || input.charAt(0) > 'J'){
             return false;
         }
-        else if(input.charAt(1) < '1' || input.charAt(1) > '0'){
+        else if(input.charAt(1) < '0' || input.charAt(1) > '9'){
             return false;
         }
         return true;
@@ -299,7 +299,7 @@ public class BattleShip {
     static void printGrid(char[][] grid) {
         System.out.println("  A B C D E F G H I J");
         for (int i = 1; i < 10; i++) {
-            System.out.print(i + 1 + " ");
+            System.out.print(i + " ");
             for (int j = 0; j < 10; j++) {
                 System.out.print(grid[i][j] + " ");
             }
