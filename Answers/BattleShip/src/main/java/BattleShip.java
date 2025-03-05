@@ -204,55 +204,55 @@ public class BattleShip {
 
     static boolean shipSunk(char[][] opponentGrid, char[][] trackingGrid, int row, int col) {
         int holdRow = row;
-        boolean horizontal = false;
-        int shipSize = 0;
-        int holdRow2 = row + 1;
-        int holdCol2 = col + 1;
-        while(row >= 0 && opponentGrid[row][col] == 'S'){
+        boolean horizontal = true;
+        int shipSize = 1;
+        int holdRow2 = row;
+        int holdCol2 = col;
+        while(row-1 >= 0 && opponentGrid[row-1][col] == 'S'){
             shipSize++;
             holdRow2--;
-            horizontal = true;
-            if(trackingGrid[row][col] != 'X'){
+            horizontal = false;
+            if(trackingGrid[row-1][col] != 'X'){
                 return false;
             }
             row--;
         }
-        row = holdRow + 1;
-        while(row < 10 && opponentGrid[row][col] == 'S'){
+        row = holdRow;
+        while(row+1 < 10 && opponentGrid[row+1][col] == 'S'){
             shipSize++;
-            horizontal = true;
-            if(trackingGrid[row][col] != 'X'){
+            horizontal = false;
+            if(trackingGrid[row+1][col] != 'X'){
                 return false;
             }
             row++;
         }
-        row = holdRow2;
 
         int holdCol = col;
-        while(col >= 0 && opponentGrid[row][col] == 'S'){
+        while(col-1 >= 0 && opponentGrid[row][col-1] == 'S'){
             shipSize++;
             holdCol2--;
-            if(trackingGrid[row][col] != 'X'){
+            if(trackingGrid[row][col-1] != 'X'){
                 return false;
             }
             col--;
         }
-        col = holdCol + 1;
-        while(col < 10 && opponentGrid[row][col] == 'S'){
+        col = holdCol;
+        while(col+1 < 10 && opponentGrid[row][col+1] == 'S'){
             shipSize++;
-            if(trackingGrid[row][col] != 'X'){
+            if(trackingGrid[row][col+1] != 'X'){
                 return false;
             }
             col++;
         }
         col = holdCol2;
+        row = holdRow2;
 
         if(horizontal){
-            for (int i = -1; i < shipSize; i++) {
+            for (int i = -1; i < shipSize + 1; i++) {
                 for (int j = -1; j < 2; j++) {
                     if(row + j >= 0 && row + j < 10 && col + i >= 0 && col + i < 10){
-                        if(trackingGrid[row + i][col + j] == '~'){
-                            trackingGrid[row + i][col + j] = 'O';
+                        if(trackingGrid[row + j][col + i] == '~'){
+                            trackingGrid[row + j][col + i] = 'O';
                         }
                     }
                 }
@@ -260,10 +260,10 @@ public class BattleShip {
         }
         else{
             for (int i = -1; i < 2; i++) {
-                for (int j = -1; j < shipSize; j++) {
+                for (int j = -1; j < shipSize + 1; j++) {
                     if(row + j >= 0 && row + j < 10 && col + i >= 0 && col + i < 10){
-                        if(trackingGrid[row + i][col + j] == '~'){
-                            trackingGrid[row + i][col + j] = 'O';
+                        if(trackingGrid[row + j][col + i] == '~'){
+                            trackingGrid[row + j][col + i] = 'O';
                         }
                     }
                 }
