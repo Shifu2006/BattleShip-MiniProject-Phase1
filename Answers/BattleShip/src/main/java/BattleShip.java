@@ -140,7 +140,7 @@ public class BattleShip {
             if(col + size > 10){
                 return false;
             }
-            for (int i = -1; i < size; i++) {
+            for (int i = -1; i < size + 1; i++) {
                 for (int j = -1; j < 2; j++) {
                     if(row + j >= 0 && row + j < 10 && col + i >= 0 && col + i < 10){
                         if(grid[row + j][col + i] != '~'){
@@ -155,7 +155,7 @@ public class BattleShip {
                 return false;
             }
             for (int i = -1; i < 2; i++) {
-                for (int j = -1; j < size; j++) {
+                for (int j = -1; j < size + 1; j++) {
                     if(row + j >= 0 && row + j < 10 && col + i >= 0 && col + i < 10){
                         if(grid[row + j][col + i] != '~'){
                             return false;
