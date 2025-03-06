@@ -61,6 +61,14 @@ public class BattleShip {
         // Main game loop, runs until one player's ships are all sunk
         while (!isGameOver()) {
             if (player1Turn) {
+                
+                /** 
+                printGrid(player1Grid);
+                System.out.println();
+                printGrid(player2Grid);
+                System.out.println(); 
+                */
+                
                 System.out.println("Player 1's turn:");
                 printGrid(player1TrackingGrid);
                 playerTurn(player2Grid, player1TrackingGrid);
@@ -102,7 +110,6 @@ public class BattleShip {
             while(!canPlaceShip(grid, rInt, cInt, i, horizontal)){
                 rInt = rand.nextInt(10);
                 cInt = rand.nextInt(10);
-                horizontal = rand.nextBoolean();
             }
             if(horizontal){
                 for(int j = 0; j < i; j++){
